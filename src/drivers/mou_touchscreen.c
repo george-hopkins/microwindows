@@ -50,6 +50,7 @@
 #ifdef TOUCHSCREEN_TOMTOM
 #include "touchscreen_tomtom.h"
 #include "ttmouse_init.h"
+int ts_tomtom_yres = 239;
 #endif
 
 #ifndef TS_DEVICE
@@ -69,6 +70,8 @@ static int PD_Open(MOUSEDEVICE *pmd)
 
 	#ifdef TOUCHSCREEN_TOMTOM
   		if (ttmouse_init() < 0) EPRINTF("TomTom touchscreen calibration failed\n");
+		char *env;
+		if((env = getenv("NANOX_YRES")) != NULL) ts_tomtom_yres = atoi(env) - 1;
 	#endif
 
 	GdHideCursor(&scrdev);  
@@ -120,7 +123,7 @@ static int PD_Read(MWCOORD *px, MWCOORD *py, MWCOORD *pz, int *pb)
 	*px = event.x;
 	#ifdef TOUCHSCREEN_TOMTOM
 		// TomTom crazyness
-		*py = 239 - event.y;	
+		*py = ts_tomtom_yres - event.y;
 	#else
 		*py = event.y;
 	#endif
