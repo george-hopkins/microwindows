@@ -23,9 +23,9 @@ ifeq ($(ARCH), RTEMS)
   LIBINSTALLDIR = $(RTEMS_MAKEFILE_PATH)/lib
   BININSTALLDIR = $(RTEMS_MAKEFILE_PATH)/bin
 else
-  INSTALL_PREFIX  = /usr
-  INSTALL_OWNER1  = -o root -g root
-  INSTALL_OWNER2  = -o root -g bin
+  INSTALL_PREFIX  = $(ARM_APPROOT)
+  INSTALL_OWNER1  =
+  INSTALL_OWNER2  =
   HDRINSTALLDIR = $(INSTALL_PREFIX)/include/microwin
   LIBINSTALLDIR = $(INSTALL_PREFIX)/lib
   BININSTALLDIR = $(INSTALL_PREFIX)/bin
@@ -39,6 +39,9 @@ INSTALL_BIN   = install -c -m 755 $(INSTALL_OWNER2)
 ##############################################################################
 # Defines, includes, and core libraries.  Controlled by the config file.
 ##############################################################################
+
+# for TSLIBMOUSE
+LDFLAGS += -lts
 
 # Defines
 DEFINES += -DMWPIXEL_FORMAT=$(SCREEN_PIXTYPE)

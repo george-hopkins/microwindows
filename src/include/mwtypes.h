@@ -232,7 +232,7 @@
  *       calling the GrArea function(s).
  */
 #ifndef MWPIXEL_FORMAT
-#define MWPIXEL_FORMAT	MWPF_TRUECOLOR8888
+#define MWPIXEL_FORMAT	MWPF_TRUECOLOR565
 #endif
 
 #if defined(__AS386_16__)
